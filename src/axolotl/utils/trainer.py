@@ -346,6 +346,7 @@ def calculate_total_num_steps(cfg, train_dataset, update=True):
             else:
                 batch_size = cfg.micro_batch_size
                 batch_max_len = cfg.sequence_len
+
             sampler = MultipackBatchSampler(
                 sampler=RandomSampler(train_dataset),
                 batch_size=batch_size,

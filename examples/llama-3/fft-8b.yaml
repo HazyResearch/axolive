@@ -1,4 +1,4 @@
-base_model: meta-llama/Meta-Llama-3-8B
+base_model: meta-llama/Meta-Llama-3-8B-Instruct
 model_type: LlamaForCausalLM
 tokenizer_type: AutoTokenizer
 
@@ -6,27 +6,33 @@ load_in_8bit: false
 load_in_4bit: false
 strict: false
 
+
+
 datasets:
-  - path: tatsu-lab/alpaca
-    type: alpaca
+  - path: wikipedia
+    type: pretrain
+
+
 dataset_prepared_path: last_run_prepared
 val_set_size: 0.05
-output_dir: ./outputs/out
+output_dir: /var/cr05_data/sabri_data/axolive/checkpoints
 
-sequence_len: 8192
+sequence_len: 2048
 sample_packing: true
-pad_to_sequence_len: true
+eval_sample_packing: true
+pad_to_sequence_len: false
 
-wandb_project:
-wandb_entity:
+wandb_project: axolive
+wandb_entity: hazy-research
 wandb_watch:
-wandb_name:
+wandb_name: test-run
 wandb_log_model:
 
 gradient_accumulation_steps: 8
 micro_batch_size: 1
-num_epochs: 1
+num_epochs: 4
 optimizer: paged_adamw_8bit
+max_steps: 2000
 lr_scheduler: cosine
 learning_rate: 2e-5
 
